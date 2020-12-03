@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:ital@1&display=swap" rel="stylesheet">
+    <title>Document</title>
+    <script>
+        var d2 = ' ';
+        var d1 = 0;
+        var result = 0;
+        var op = '+';
+        var dell;
+        var slc = '';
+        function display(val) {
+            d2 += val;
+            document.getElementById('result').value = d2;
+        }
+        function solve(oper) {
+            switch (op) {
+                case '+':
+                    result = parseFloat(parseFloat(d1) + parseFloat(d2));
+                    break;
+                case '-':
+                    result = parseFloat(parseFloat(d1) - parseFloat(d2));
+                    break;
+                case '*':
+                    result = parseFloat(parseFloat(d1) * parseFloat(d2));
+                    break;
+                case '/':
+                    result = parseFloat(parseFloat(d1) / parseFloat(d2));
+                    break;
+                case '=':
+                    document.getElementById('result').value = d2;
+                    break;
+            }
+            if (oper == '+' || oper == '-' || oper == '/' || oper == '*') {
+                document.getElementById('result').value = result + oper;
+            }
+            else {
+                document.getElementById('result').value = result;
+            }
+            d1 = result;
+            d2 = '';
+            op = oper;
+
+        }
+
+        function clr() {
+            document.getElementById("result").value = " ";
+            d2 = ' ';
+            d1 = 0;
+            op = '+';
+        }
+        function del() {
+            dell = document.getElementById('result').value;
+            slc = dell.charAt(dell.length - 1);
+            if (slc == '+' || slc == '-' || slc == '/' || slc == '*') {
+                dell = dell.slice(0, -1);
+                document.getElementById('result').value = dell;
+                d2 = dell;
+            }
+            else {
+                dell = dell.slice(0, -1);
+                document.getElementById('result').value = dell;
+                d2 = parseInt(d2 / 10);
+            }
+
+        }
+    </script>
+    <style>
+        * {
+            outline: none;
+        }
+
+        body {
+            background: #EF2D4F;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Rubik', sans-serif;
+        }
+
+        .outer {
+            height: 530px;
+            width: 300px;
+            background-color: white;
+            border-radius: 20px;
+            margin: 3%;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        }
+
+        .d1 {
+            height: 9%;
+            width: 100%;
+            text-align: center;
+        }
+
+        #d11 {
+            height: 100%;
+            width: 49%;
+            float: left;
+            border-bottom: 2px solid lightgray;
+            font-size: 20px;
+            color: lightgray;
+        }
+
+        #d12 {
+            height: 100%;
+            width: 49%;
+            float: left;
+            border-bottom: 2px solid lightgray;
+            font-size: 20px;
+            color: lightgray;
+        }
+
+        #d2 {
+            height: 30%;
+            width: 100%;
+        }
+
+        #result {
+            margin: 2% 7% 2% 4%;
+            height: 90%;
+            width: 90%;
+            background-color: white;
+            font-size: 50px;
+            color: black;
+            text-align: center;
+        }
+
+        .d3 {
+            height: 60%;
+            width: 100%;
+        }
+
+        input {
+            height: 44px;
+            width: 15%;
+            border-radius: 22px;
+            margin: 7px 7px 7px 7px;
+            font-size: 30px;
+            font-weight: 400;
+            border: white;
+        }
+
+        input:hover {
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        }
+
+        .c1 {
+            background-color: #333333;
+            color: white;
+        }
+
+        .c2 {
+            background-color: #EF2D4F;
+            color: white;
+        }
+
+        .c4 {
+            width: 37%;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="outer">
+        <div class="d1">
+            <div id="d11">
+                <p id="standard" onclick="standard()">Standard</p>
+
+            </div>
+            <div id="d12">
+                <p id="scientific" onclick="scientific()">Scientific</p>
+            </div>
+        </div>
+        <div id="d2">
+            <input type="button" class="c1" name="answer" id="result">
+        </div>
+        <div class="d3">
+            <hr style="margin: 0%; width: 85%; margin: auto;height:2px; background-color: lightgray; border: none;">
+            <form style="text-align: center;">
+                <div><input type="button" value="C" class="c1" onclick="clr()">
+                    <input type="button" value="&#8249;" class="c1" onclick="del()">
+                    <input type="button" value="+/-" class="c1" onclick="clr()" disabled>
+                    <input type="button" value="/" class="c2" onclick="solve('/')"></div>
+                <div><input type="button" value="7" class="c3" onclick="display('7')">
+                    <input type="button" value="8" class="c3" onclick="display('8')">
+                    <input type="button" value="9" class="c3" onclick="display('9')">
+                    <input type="button" value="x" class="c2" onclick="solve('*')"></div>
+                <div><input type="button" value="4" class="c3" onclick="display('4')">
+                    <input type="button" value="5" class="c3" onclick="display('5')">
+                    <input type="button" value="6" class="c3" onclick="display('6')">
+                    <input type="button" value="-" class="c2" onclick="solve('-')"></div>
+                <div><input type="button" value="1" class="c3" onclick="display('1')">
+                    <input type="button" value="2" class="c3" onclick="display('2')">
+                    <input type="button" value="3" class="c3" onclick="display('3')">
+                    <input type="button" value="+" class="c2" onclick="solve('+')"></div>
+                <div><input type="button" value="0" class="c4" onclick="display('0')">
+                    <input type="button" value="." class="c3" onclick="display('.')">
+                    <input type="button" value="=" class="c2" onclick="solve('=')"></div>
+            </form>
+        </div>
+    </div>
+    <script>
+        function standard() {
+            document.getElementById("standard").style.color = "#EF2D4F";
+            document.getElementById("d11").style.borderBottom = "solid #EF2D4F";
+            document.getElementById("scientific").style.color = " lightgray";
+            document.getElementById("d12").style.borderBottom = "solid  lightgray";
+        }
+        function scientific() {
+            document.getElementById("scientific").style.color = "#EF2D4F";
+            document.getElementById("d12").style.borderBottom = "solid #EF2D4F";
+            document.getElementById("standard").style.color = " lightgray";
+            document.getElementById("d11").style.borderBottom = "solid  lightgray";
+        }
+    </script>
+</body>
+
+</html>
